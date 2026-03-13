@@ -125,7 +125,7 @@ What assignments are due this week?
 不知道 skills 是什麼的話，可以先看這些：
 
 - [skills.sh](https://skills.sh/) — skills 搜尋引擎，找找有什麼好用的
-- [anthropics/skills](https://github.com/anthropics/skills) — Anthropic 官方出的 skills，程式碼 review、commit message 那些
+- [anthropics/skills](https://github.com/anthropics/skills) — Anthropic 官方 skills，PDF、Word、PPT、Excel 文件處理都有
 
 寫報告或文章的時候，AI 味太重？這兩個 skill 可以幫你修：
 
