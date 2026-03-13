@@ -38,10 +38,14 @@ your-project/
 ## 安裝 / Install
 
 ```bash
-git clone https://github.com/YouMingYeh/ntu-assistant-skill.git ~/.claude/skills/ntu-assistant
+npx skills add YouMingYeh/ntu-assistant-skill
 ```
 
-或直接下載這個 repo，放到 `~/.claude/skills/ntu-assistant/`。
+或手動 clone：
+
+```bash
+git clone https://github.com/YouMingYeh/ntu-assistant-skill.git ~/.claude/skills/ntu-assistant
+```
 
 ## 使用 / Usage
 
