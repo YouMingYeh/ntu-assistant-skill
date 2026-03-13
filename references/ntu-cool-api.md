@@ -163,6 +163,33 @@ GET /api/v1/courses/:course_id/files/:file_id
 ```
 The `url` field contains a time-limited signed download URL.
 
+### File Download Edge Cases
+
+Not all materials can be downloaded the same way. Handle by type:
+
+**1. Normal COOL files** — use the `url` field from the files API. Download via `navigate_page` to the URL.
+
+**2. Google Slides / Docs / Sheets (external links)** — module items with `type: "ExternalUrl"` pointing to `docs.google.com`. Convert the URL to export PDF:
+```
+Original:  https://docs.google.com/presentation/d/{id}/edit
+Export as: https://docs.google.com/presentation/d/{id}/export/pdf
+
+Original:  https://docs.google.com/document/d/{id}/edit
+Export as: https://docs.google.com/document/d/{id}/export?format=pdf
+
+Original:  https://docs.google.com/spreadsheets/d/{id}/edit
+Export as: https://docs.google.com/spreadsheets/d/{id}/export?format=pdf
+```
+Navigate to the export URL to trigger download.
+
+**3. Restricted files (empty or null `url`)** — some files return no download URL due to course permissions. Inform the user and provide the COOL web URL so they can download manually in the browser.
+
+**4. Videos / streaming media** — skip. Only download documents, slides, and PDFs.
+
+### Download Location
+
+Save all downloaded files to the current working directory, following the folder structure in `output-format.md`. Do not create arbitrary paths or download to system directories.
+
 ### 7. Discussion Topics (per course)
 ```
 GET /api/v1/courses/:course_id/discussion_topics?per_page=30
