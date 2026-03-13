@@ -112,6 +112,44 @@ Use `evaluate_script` with `fetch()` + `credentials: 'include'` against `https:/
 
 If API fails (non-JSON, 403, redirect), fall back to `take_snapshot` + parse.
 
+## Deep Content Reading
+
+Don't just list titles and links — read and understand the actual content. The goal is to surface things the student would otherwise miss.
+
+### What to read
+
+1. **Announcement bodies** — the `message` field is HTML. Parse it fully. Look for: exam dates, room changes, class cancellations, format requirements, schedule changes, TA office hours, anything time-sensitive.
+
+2. **Assignment descriptions** — the `description` field contains submission rules, formatting requirements (LaTeX, PDF only, naming convention), grading rubrics, late penalties, group vs individual. Extract all of these, not just the due date.
+
+3. **Syllabus page** — `GET /api/v1/courses/:id` returns a `syllabus_body` field (HTML). This often contains the full semester schedule: weekly topics, exam weeks, grading breakdown, textbook info, attendance policy. Parse it thoroughly.
+
+4. **Module page content** — items with `type: "Page"` have readable content. Fetch via `GET /api/v1/courses/:id/pages/:url` (the `url` field from the module item, not the page URL). These often contain instructions, reading lists, or supplementary notes.
+
+5. **Downloaded files** — after downloading PDFs and slides, read them to extract: course outline, exam scope, project milestones, important dates, grading criteria.
+
+### How to read
+
+- For HTML content (announcements, assignments, syllabus): strip tags, read the full text. Don't truncate or summarize prematurely.
+- For downloaded PDFs: use the agent's file reading capability.
+- For Google Slides exported as PDF: read after download.
+- Go through **every** announcement and **every** assignment description, not just the latest ones. Important policies are often in early-semester posts.
+
+### What to surface
+
+After reading, proactively highlight:
+- Exam dates and scope (midterm, final, quizzes)
+- Grading breakdown (participation %, homework %, exams %)
+- Submission format requirements (file type, naming, platform)
+- Late submission policies
+- Group project deadlines and team formation dates
+- TA info and office hours
+- Textbooks and required readings
+- Attendance or participation rules
+- Anything unusual or easy to miss
+
+Don't wait for the user to ask — if you find something important, surface it.
+
 ## 教務資訊服務網 (ePortfolio)
 
 For schedule, course history, grades, activities. Read `references/ntu-eportfolio.md` for details.

@@ -45,6 +45,18 @@ const d = await r.json();
 JSON.stringify(d.map(c => ({id:c.id, name:c.name, code:c.course_code})));
 ```
 
+To get a single course with syllabus:
+```
+GET /api/v1/courses/:course_id?include[]=syllabus_body
+```
+The `syllabus_body` field contains the full syllabus as HTML. Parse it to extract semester schedule, grading policy, exam dates, textbooks, etc.
+
+To get a wiki page's content (from module items with `type: "Page"`):
+```
+GET /api/v1/courses/:course_id/pages/:page_url
+```
+Returns `{ "body": "<p>HTML content...</p>" }`. The `:page_url` is the `page_url` field from the module item, not a full URL.
+
 ### 2. Announcements (per course)
 ```
 GET /api/v1/courses/:course_id/discussion_topics?only_announcements=true&per_page=30
