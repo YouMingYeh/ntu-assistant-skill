@@ -8,7 +8,7 @@ Every semester, NTU students manually hop between COOL, myNTU, Mail, and ePortfo
 
 ## 功能 / What it does
 
-從 NTU COOL 抓課程、公告、教材（走 Canvas API），從 myNTU 拉課表，把所有作業截止日期整理成一份清單。也可以選擇自動下載 PDF 教材。Mail 只抓信件標題和寄件人，不碰內文。ePortfolio 的學分追蹤也有。
+從 NTU COOL 抓課程、公告、教材，從 myNTU 拉課表，把所有作業截止日期整理成一份清單。也可以選擇自動下載 PDF 教材。Mail 只抓信件標題和寄件人，不碰內文。ePortfolio 的學分追蹤也有。
 
 最後產出長這樣：
 
@@ -118,12 +118,12 @@ Download all my course materials from COOL
 What assignments are due this week?
 ```
 
-它會自己確認 Chrome MCP 有沒有連上、你有沒有登入（登入是你自己在 Chrome 操作，skill 不碰密碼），然後用 Canvas REST API 抓資料，在你的目錄下產生整理好的檔案。
+它會自己確認 Chrome MCP 有沒有連上、你有沒有登入（登入是你自己在 Chrome 操作，skill 不碰密碼），然後從各系統抓資料，在你的目錄下產生整理好的檔案。
 
 ## 安全 / Security
 
 - 登入都是你自己在 Chrome 裡手動操作，skill 不會自動填密碼
-- 資料透過 Canvas REST API 抓取，用的是你瀏覽器的 session
+- 資料用你瀏覽器的 session 抓取，不另存帳號資訊
 - Mail 只讀標題、寄件人、日期，不讀信件內容
 - 所有資料都留在你的電腦上
 
